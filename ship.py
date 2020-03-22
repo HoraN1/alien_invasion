@@ -16,6 +16,16 @@ class Ship:
         # Put every ship at the middle bottom of the screen
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
+        # Moving signal
+        self.moving_right = False
+
+    def update(self):
+        """
+        Adjust the location of ship by command
+        :return:
+        """
+        if self.moving_right:
+            self.rect.centerx += 1
 
     def blit_me(self):
         """
