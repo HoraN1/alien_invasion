@@ -1,13 +1,14 @@
 import sys
 import pygame
+from settings import Settings
 
 
 def run_game():
     # Initialize a game screen
     pygame.init()
-    screen = pygame.display.set_mode((1200, 800))
+    game_settings = Settings()
+    screen = pygame.display.set_mode((game_settings.screen_width, game_settings.screen_height))
     pygame.display.set_caption("Alien Invasion")
-    bg_color = (230, 230, 230)
 
     # Start the game main loop
     while True:
@@ -16,7 +17,7 @@ def run_game():
             if event.type == pygame.QUIT:
                 sys.exit()
 
-            screen.fill(bg_color)
+            screen.fill(game_settings.bg_color)
             # Display the screen
             pygame.display.flip()
 
