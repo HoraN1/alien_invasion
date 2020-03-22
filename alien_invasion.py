@@ -20,7 +20,7 @@ def run_game():
     # Start the game main loop
     while True:
         # Check for keys and mouse event
-        g_func.check_events()
+        g_func.check_events(ship)
         g_func.update_screen(game_settings, screen, ship)
 
 
