@@ -12,6 +12,7 @@ class Ship:
         # Loading ship image
         image = pygame.image.load('images/ship.png')
         self.image = pygame.transform.scale(image, (123, 128))
+        # Setup the rectangular of the ship and screen
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         # Put every ship at the middle bottom of the screen
@@ -27,9 +28,10 @@ class Ship:
         Adjust the location of ship by command
         :return:
         """
-        if self.moving_right:
+        # Update the location of the ship center
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.center += self.game_settings.ship_speed
-        if self.moving_left:
+        if self.moving_left and self.rect.left > 0:
             self.center -= self.game_settings.ship_speed
         # Update the ship location based on self.center
         self.rect.centerx = self.center
