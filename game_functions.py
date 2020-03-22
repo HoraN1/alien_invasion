@@ -2,33 +2,42 @@ import sys
 import pygame
 
 
+def check_keydown(event, ship):
+    """
+    Check keydown event
+    """
+    if event.key == pygame.K_RIGHT:
+        ship.moving_right = True
+    elif event.key == pygame.K_LEFT:
+        ship.moving_left = True
+
+
+def check_keyup(event, ship):
+    """
+    Check key up event
+    """
+    if event.key == pygame.K_RIGHT:
+        ship.moving_right = False
+    elif event.key == pygame.K_LEFT:
+        ship.moving_left = False
+
+
 def check_events(ship):
     """
     Check the response from keyboard and mouse
-    :return:
     """
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                ship.moving_right = True
-            elif event.key == pygame.K_LEFT:
-                ship.moving_left = True
+            check_keydown(event, ship)
         elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_RIGHT:
-                ship.moving_right = False
-            elif event.key == pygame.K_LEFT:
-                ship.moving_left = False
+            check_keyup(event, ship)
 
 
 def update_screen(game_settings, screen, ship):
     """
     Update surfaces on screen
-    :param game_settings:
-    :param screen:
-    :param ship:
-    :return:
     """
     # Redraw the screen per loop
     screen.fill(game_settings.bg_color)
