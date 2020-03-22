@@ -4,7 +4,10 @@ from settings import Settings
 
 
 def run_game():
-    # Initialize a game screen
+    """
+    Initialize a game screen
+    :return: None
+    """
     pygame.init()
     game_settings = Settings()
     screen = pygame.display.set_mode((game_settings.screen_width, game_settings.screen_height))
