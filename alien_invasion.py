@@ -1,7 +1,8 @@
 import pygame
+import game_functions as g_func
 from settings import Settings
 from ship import Ship
-import game_functions as g_func
+from pygame.sprite import Group
 
 
 def run_game():
@@ -17,13 +18,17 @@ def run_game():
     # Create a ship
     ship = Ship(game_settings, screen)
 
+    # Create a Bullet Group
+    bullets = Group()
+
     # Start the game main loop
     while True:
         # Check for keys and mouse event
-        g_func.check_events(ship)
-        # Update shi[ states according to event
+        g_func.check_events(game_settings, screen, ship, bullets)
+        # Update ship states according to event
         ship.update()
-        g_func.update_screen(game_settings, screen, ship)
+        bullets.update()
+        g_func.update_screen(game_settings, screen, ship, bullets)
 
 
 run_game()
