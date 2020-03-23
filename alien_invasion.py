@@ -27,12 +27,7 @@ def run_game():
         g_func.check_events(game_settings, screen, ship, bullets)
         # Update ship states according to event
         ship.update()
-        bullets.update()
-        # Delete bullet if exceeding the screen
-        for bullet in bullets.copy():
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
-
+        g_func.update_bullets(bullets)
         g_func.update_screen(game_settings, screen, ship, bullets)
 
 
