@@ -80,6 +80,33 @@ def update_bullets(bullets):
             bullets.remove(bullet)
 
 
+def check_fleet_edges(game_settings, aliens):
+    """
+    Move another way if the aliens are at the edge
+    """
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(game_settings, aliens)
+            break
+
+
+def change_fleet_direction(game_settings, aliens):
+    """
+    Move the aliens down and change direction
+    """
+    for alien in aliens.sprites():
+        alien.rect.y += game_settings.fleet_drop_speed
+    game_settings.fleet_direction *= -1
+
+
+def update_aliens(game_settings, aliens):
+    """
+    Update aliens positions
+    """
+    check_fleet_edges(game_settings, aliens)
+    aliens.update()
+
+
 def get_number_aliens(game_settings, alien_width):
     """
     Calculate numbers of aliens each line
