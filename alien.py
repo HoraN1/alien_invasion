@@ -16,7 +16,7 @@ class Alien(Sprite):
 
         # Load image of alien
         image = pygame.image.load('images/alien.png')
-        self.image = pygame.transform.scale(image, (128, 91))
+        self.image = pygame.transform.scale(image, (64, 45))
         self. rect = self.image.get_rect()
 
         # Initial position at left top corner

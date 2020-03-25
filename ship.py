@@ -11,7 +11,7 @@ class Ship:
 
         # Load the ship image
         image = pygame.image.load('images/ship.png')
-        self.image = pygame.transform.scale(image, (123, 128))
+        self.image = pygame.transform.scale(image, (61, 64))
 
         # Setup the rectangular of the ship and screen
         self.rect = self.image.get_rect()
