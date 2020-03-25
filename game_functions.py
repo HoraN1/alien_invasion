@@ -50,17 +50,19 @@ def check_events(game_settings, screen, ship, bullets):
             check_keyup(event, ship)
 
 
-def update_screen(game_settings, screen, ship, bullets):
+def update_screen(game_settings, screen, ship, alien, bullets):
     """
     Update surfaces on screen
     """
     # Redraw the screen per loop
     screen.fill(game_settings.bg_color)
-    ship.blit_me()
 
     # Redraw bullets
     for bullet in bullets.sprites():
         bullet.draw_bullet()
+
+    ship.blit_me()
+    alien.blit_me()
 
     # Display the screen
     pygame.display.flip()
