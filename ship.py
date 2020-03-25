@@ -44,3 +44,9 @@ class Ship:
         Draw the ship at specific location
         """
         self.screen.blit(self.image, self.rect)
+
+    def center_ship(self):
+        """
+        Center the ship
+        """
+        self.center = self.screen_rect.centerx
