@@ -20,6 +20,8 @@ class Button:
         self.rect.center = self.screen_rect.center
 
         # Create button tag once
+        self.msg_image = None
+        self.msg_image_rect = None
         self.pre_msg(msg)
 
     def pre_msg(self, msg):

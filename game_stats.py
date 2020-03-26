@@ -7,6 +7,7 @@ class GameStats:
         Initialize stats data
         """
         self.game_settings = game_settings
+        self.ships_left = None
         self.reset_stats()
 
         # Game activate when started
