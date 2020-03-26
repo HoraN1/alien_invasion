@@ -27,3 +27,8 @@ class Settings:
         self. bullet_color = 230, 20, 20
         self.bullet_speed = 1
         self.bullets_allowed = 8
+
+        # Button settings
+        self.button_size = 200, 50
+        self.button_color = (70, 165, 70)
+        self.font_color = (245, 245, 245)

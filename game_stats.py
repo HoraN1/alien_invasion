@@ -10,7 +10,7 @@ class GameStats:
         self.reset_stats()
 
         # Game activate when started
-        self.game_active = True
+        self.game_active = False
 
     def reset_stats(self):
         self.ships_left = self.game_settings.ship_limit

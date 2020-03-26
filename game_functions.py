@@ -52,7 +52,7 @@ def check_events(game_settings, screen, ship, bullets):
             check_keyup(event, ship)
 
 
-def update_screen(game_settings, screen, ship, alien, bullets):
+def update_screen(game_settings, screen, stats, ship, alien, bullets, button):
     """
     Update surfaces on screen
     """
@@ -65,6 +65,10 @@ def update_screen(game_settings, screen, ship, alien, bullets):
 
     ship.blit_me()
     alien.draw(screen)
+
+    # If game not active, play button:
+    if not stats.game_active:
+        button.draw_button()
 
     pygame.display.flip()
 
