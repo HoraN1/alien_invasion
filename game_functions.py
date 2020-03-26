@@ -39,15 +39,19 @@ def check_keyup(event, ship):
         ship.moving_left = False
 
 
-def check_play_button(stats, button, mouse_x, mouse_y):
+def check_play_button(game_settings, stats, screen, ship, aliens, bullets, button, mouse_x, mouse_y):
     """
     Start the game when clicking the play button
     """
-    if button.rect.collidepoint(mouse_x, mouse_y):
+    button_clicked = button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
+        stats.reset_stats()
         stats.game_active = True
 
+        game_initialize(game_settings, screen, ship, aliens, bullets)
 
-def check_events(game_settings, screen, stats, button, ship, bullets):
+
+def check_events(game_settings, stats, screen, button, ship, aliens, bullets):
     """
     Check the response from keyboard and mouse
     """
@@ -60,10 +64,10 @@ def check_events(game_settings, screen, stats, button, ship, bullets):
             check_keyup(event, ship)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(stats, button, mouse_x, mouse_y)
+            check_play_button(game_settings, stats, screen, ship, aliens, bullets, button, mouse_x, mouse_y)
 
 
-def update_screen(game_settings, screen, stats, button, ship, alien, bullets):
+def update_screen(game_settings, stats, screen, button, ship, alien, bullets):
     """
     Update surfaces on screen
     """
@@ -137,17 +141,24 @@ def change_fleet_direction(game_settings, aliens):
     game_settings.fleet_direction *= -1
 
 
+def game_initialize(game_settings, screen, ship, aliens, bullets):
+    """
+    Initialize the game
+    """
+    aliens.empty()
+    bullets.empty()
+    # Create a new group of ship and initialize the ship
+    create_fleet(game_settings, screen, ship, aliens)
+    ship.center_ship()
+
+
 def ship_hit(game_settings, stats, screen, ship, aliens, bullets):
     """
     Respond to the collision of ship and alien
     """
     if stats.ships_left > 1:
         stats.ships_left -= 1
-        aliens.empty()
-        bullets.empty()
-        # Create a new group of ship and initialize the ship
-        create_fleet(game_settings, screen, ship, aliens)
-        ship.center_ship()
+        game_initialize(game_settings, screen, ship, aliens, bullets)
 
         sleep(0.5)
     else:
