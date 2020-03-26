@@ -13,6 +13,7 @@ def start_game(game_settings, stats, score_board, screen, ship, aliens, bullets)
     # Reset score board, settings, aliens and bullets groups
     score_board.prep_score()
     score_board.prep_level()
+    score_board.prep_ships()
     game_settings.initialize_settings()
     game_initialize(game_settings, screen, ship, aliens, bullets)
 
@@ -113,14 +114,14 @@ def update_bullets(game_settings, stats, score_board, screen, ship, aliens, bull
     check_bullet_alien_collision(game_settings, stats, score_board, screen, ship, aliens, bullets)
 
 
-def check_aliens_bottom(game_settings, stats, screen, ship, aliens, bullets):
+def check_aliens_bottom(game_settings, stats, score_board, screen, ship, aliens, bullets):
     """
     Check whether aliens reach the bottom of screen
     """
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
         if alien.rect.bottom >= screen_rect.bottom:
-            ship_hit(game_settings, stats, screen, ship, aliens, bullets)
+            ship_hit(game_settings, stats, score_board, screen, ship, aliens, bullets)
             break
 
 
@@ -172,12 +173,13 @@ def game_initialize(game_settings, screen, ship, aliens, bullets):
     ship.center_ship()
 
 
-def ship_hit(game_settings, stats, screen, ship, aliens, bullets):
+def ship_hit(game_settings, stats, score_board, screen, ship, aliens, bullets):
     """
     Respond to the collision of ship and alien
     """
     if stats.ships_left > 1:
         stats.ships_left -= 1
+        score_board.prep_ships()
         game_initialize(game_settings, screen, ship, aliens, bullets)
 
         sleep(0.5)
@@ -186,7 +188,7 @@ def ship_hit(game_settings, stats, screen, ship, aliens, bullets):
         pygame.mouse.set_visible(True)
 
 
-def update_aliens(game_settings, stats, screen, ship, aliens, bullets):
+def update_aliens(game_settings, stats, score_board, screen, ship, aliens, bullets):
     """
     Update aliens positions
     """
@@ -195,9 +197,9 @@ def update_aliens(game_settings, stats, screen, ship, aliens, bullets):
 
     # Check collision between ship and aliens
     if pygame.sprite.spritecollideany(ship, aliens):
-        ship_hit(game_settings, stats, screen, ship, aliens, bullets)
+        ship_hit(game_settings, stats, score_board, screen, ship, aliens, bullets)
 
-    check_aliens_bottom(game_settings, stats, screen, ship, aliens, bullets)
+    check_aliens_bottom(game_settings, stats, score_board, screen, ship, aliens, bullets)
 
 
 def get_number_aliens(game_settings, alien_width):
