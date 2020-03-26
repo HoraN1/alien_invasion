@@ -8,8 +8,11 @@ from time import sleep
 def start_game(game_settings, stats, score_board, screen, ship, aliens, bullets):
     stats.reset_stats()
     stats.game_active = True
-    score_board.prep_score()
     pygame.mouse.set_visible(False)
+
+    # Reset score board, settings, aliens and bullets groups
+    score_board.prep_score()
+    score_board.prep_level()
     game_settings.initialize_settings()
     game_initialize(game_settings, screen, ship, aliens, bullets)
 
@@ -134,6 +137,8 @@ def check_bullet_alien_collision(game_settings, stats, score_board, screen, ship
     if len(aliens) == 0:
         bullets.empty()
         game_settings.increase_level()
+        stats.level += 1
+        score_board.prep_level()
         create_fleet(game_settings, screen, ship, aliens)
 
 
