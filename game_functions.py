@@ -5,6 +5,13 @@ from alien import Alien
 from time import sleep
 
 
+def start_game(game_settings, stats, screen, ship, aliens, bullets):
+    stats.reset_stats()
+    stats.game_active = True
+    pygame.mouse.set_visible(False)
+    game_initialize(game_settings, screen, ship, aliens, bullets)
+
+
 def fire_bullet(game_settings, screen, ship, bullets):
     """
     If not over the bullet limit, add one to the firing group
@@ -15,7 +22,7 @@ def fire_bullet(game_settings, screen, ship, bullets):
         bullets.add(new_bullet)
 
 
-def check_keydown(event, game_settings, screen, ship, bullets):
+def check_keydown(event, game_settings, stats,screen, ship, aliens, bullets):
     """
     Check keydown event
     """
@@ -27,6 +34,8 @@ def check_keydown(event, game_settings, screen, ship, bullets):
         fire_bullet(game_settings, screen, ship, bullets)
     elif event.key == pygame.K_ESCAPE:
         sys.exit()
+    elif event.key == pygame.K_p:
+        start_game(game_settings, stats, screen, ship, aliens, bullets)
 
 
 def check_keyup(event, ship):
@@ -45,10 +54,7 @@ def check_play_button(game_settings, stats, screen, ship, aliens, bullets, butto
     """
     button_clicked = button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
-        stats.reset_stats()
-        stats.game_active = True
-        pygame.mouse.set_visible(False)
-        game_initialize(game_settings, screen, ship, aliens, bullets)
+        start_game(game_settings, stats, screen, ship, aliens, bullets)
 
 
 def check_events(game_settings, stats, screen, button, ship, aliens, bullets):
@@ -59,7 +65,7 @@ def check_events(game_settings, stats, screen, button, ship, aliens, bullets):
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown(event, game_settings, screen, ship, bullets)
+            check_keydown(event, game_settings, stats,screen, ship, aliens, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup(event, ship)
         elif event.type == pygame.MOUSEBUTTONDOWN:
