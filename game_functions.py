@@ -39,7 +39,15 @@ def check_keyup(event, ship):
         ship.moving_left = False
 
 
-def check_events(game_settings, screen, ship, bullets):
+def check_play_button(stats, button, mouse_x, mouse_y):
+    """
+    Start the game when clicking the play button
+    """
+    if button.rect.collidepoint(mouse_x, mouse_y):
+        stats.game_active = True
+
+
+def check_events(game_settings, screen, stats, button, ship, bullets):
     """
     Check the response from keyboard and mouse
     """
@@ -50,9 +58,12 @@ def check_events(game_settings, screen, ship, bullets):
             check_keydown(event, game_settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup(event, ship)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(stats, button, mouse_x, mouse_y)
 
 
-def update_screen(game_settings, screen, stats, ship, alien, bullets, button):
+def update_screen(game_settings, screen, stats, button, ship, alien, bullets):
     """
     Update surfaces on screen
     """
