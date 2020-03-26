@@ -47,7 +47,7 @@ def check_play_button(game_settings, stats, screen, ship, aliens, bullets, butto
     if button_clicked and not stats.game_active:
         stats.reset_stats()
         stats.game_active = True
-
+        pygame.mouse.set_visible(False)
         game_initialize(game_settings, screen, ship, aliens, bullets)
 
 
@@ -163,6 +163,7 @@ def ship_hit(game_settings, stats, screen, ship, aliens, bullets):
         sleep(0.5)
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
 
 def update_aliens(game_settings, stats, screen, ship, aliens, bullets):
