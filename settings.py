@@ -23,6 +23,7 @@ class Settings:
         self.alien_speed = None
         self.fleet_drop_speed = None
         self.fleet_direction = 1  # 1 to the right, -1 to the left
+        self.alien_points = 50
 
         # Bullet settings
         self.bullet_width = 3
@@ -44,9 +45,11 @@ class Settings:
         self.alien_speed = 0.7
         self.fleet_drop_speed = 20
         self.fleet_direction = 1
+        self.alien_points = 50
 
     def increase_level(self):
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
         self.fleet_drop_speed *= self.speedup_scale
+        self.alien_points *= 2

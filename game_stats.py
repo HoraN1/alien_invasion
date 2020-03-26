@@ -8,6 +8,7 @@ class GameStats:
         """
         self.game_settings = game_settings
         self.ships_left = None
+        self.score = None
         self.reset_stats()
 
         # Game activate when started
@@ -15,3 +16,4 @@ class GameStats:
 
     def reset_stats(self):
         self.ships_left = self.game_settings.ship_limit
+        self.score = 0

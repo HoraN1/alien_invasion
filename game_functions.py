@@ -74,11 +74,10 @@ def check_events(game_settings, stats, screen, button, ship, aliens, bullets):
             check_play_button(game_settings, stats, screen, ship, aliens, bullets, button, mouse_x, mouse_y)
 
 
-def update_screen(game_settings, stats, screen, button, ship, alien, bullets):
+def update_screen(game_settings, stats, score_board, screen, button, ship, alien, bullets):
     """
     Update surfaces on screen
     """
-    # Redraw the screen per loop
     screen.fill(game_settings.bg_color)
 
     # Redraw bullets
@@ -87,6 +86,7 @@ def update_screen(game_settings, stats, screen, button, ship, alien, bullets):
 
     ship.blit_me()
     alien.draw(screen)
+    score_board.show_score()
 
     # If game not active, play button:
     if not stats.game_active:
@@ -95,7 +95,7 @@ def update_screen(game_settings, stats, screen, button, ship, alien, bullets):
     pygame.display.flip()
 
 
-def update_bullets(game_settings, screen, ship, aliens, bullets):
+def update_bullets(game_settings, stats, score_board, screen, ship, aliens, bullets):
     """
     Update the position of bullet and delete those are out of screen
     """
@@ -105,7 +105,7 @@ def update_bullets(game_settings, screen, ship, aliens, bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-    check_bullet_alien_collision(game_settings, screen, ship, aliens, bullets)
+    check_bullet_alien_collision(game_settings, stats, score_board, screen, ship, aliens, bullets)
 
 
 def check_aliens_bottom(game_settings, stats, screen, ship, aliens, bullets):
@@ -119,11 +119,15 @@ def check_aliens_bottom(game_settings, stats, screen, ship, aliens, bullets):
             break
 
 
-def check_bullet_alien_collision(game_settings, screen, ship, aliens, bullets):
+def check_bullet_alien_collision(game_settings, stats, score_board, screen, ship, aliens, bullets):
     """
     Check if the bullet hit the alien
     """
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    if collisions:
+        for aliens in collisions.values():
+            stats.score += game_settings.alien_points * len(aliens)
+            score_board.prep_score()
     if len(aliens) == 0:
         bullets.empty()
         game_settings.increase_level()
