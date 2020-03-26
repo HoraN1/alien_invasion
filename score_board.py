@@ -14,6 +14,7 @@ class Scoreboard:
 
         # Prepare the score board
         self.prep_score()
+        self.prep_max_score()
 
     def prep_score(self):
         score_str = "{:,}".format(self.stats.score)
@@ -22,5 +23,13 @@ class Scoreboard:
         self.score_rect.right = self.screen_rect.right - 20
         self.score_rect.top = 20
 
+    def prep_max_score(self):
+        high_score_str = "{:,}".format(self.stats.max_score)
+        self.high_score_image = self.font.render(high_score_str, True, self.text_color, self.settings.bg_color)
+        self.high_score_rect = self.high_score_image.get_rect()
+        self.high_score_rect.centerx = self.screen_rect.centerx
+        self.high_score_rect.top = self.score_rect.top
+
     def show_score(self):
         self.screen.blit(self.score_image, self.score_rect)
+        self.screen.blit(self.high_score_image, self.high_score_rect)

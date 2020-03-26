@@ -9,6 +9,7 @@ class GameStats:
         self.game_settings = game_settings
         self.ships_left = None
         self.score = None
+        self.max_score = 0
         self.reset_stats()
 
         # Game activate when started
